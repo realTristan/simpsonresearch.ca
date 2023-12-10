@@ -5,17 +5,18 @@ import { initRenderer } from "./initRenderer";
 import { initStarGroup } from "./stars/initStarGroup";
 import { moveStarsForward } from "./stars/moveStarsForward";
 import { moveStarsForwardDefault } from "./stars/moveStarsForwardDefault";
-import { LightSpeedState, LightSpeedStateObject } from "../types";
+import { LightSpeedState, SetState } from "../types/types";
 import { LIGHT_SPEED_TIMEOUT } from "./constants";
 import { setWindowResizeListener } from "./windowResize";
+import { Group } from "three";
 
 /**
  * Initialize the star scene.
  * @param {HTMLCanvasElement} canvas
  */
-export function initStarScene(
-  canvas: HTMLCanvasElement,
-  state: LightSpeedStateObject,
+export function initSceneAnimation(
+  canvas: HTMLCanvasElement | null,
+  animationLoop: (starGroup: Group) => void,
 ) {
   if (typeof window === "undefined") return;
 
@@ -27,6 +28,7 @@ export function initStarScene(
     near: 0.1,
     far: 1000,
   });
+
   const renderer = initRenderer(canvas);
   const bloomComposer = initBloomComposer(renderer, scene, camera);
 
@@ -42,20 +44,7 @@ export function initStarScene(
   });
 
   renderer.setAnimationLoop(() => {
-    switch (state.lightSpeed) {
-      case LightSpeedState.DEFAULT:
-        moveStarsForwardDefault(starGroup);
-        break;
-      case LightSpeedState.FORWARD:
-        moveStarsForward(starGroup).then(() => {
-          const timeout = setTimeout(() => {
-            state.lightSpeed = LightSpeedState.DEFAULT;
-            clearTimeout(timeout);
-          }, LIGHT_SPEED_TIMEOUT);
-        });
-        break;
-    }
-
+    animationLoop(starGroup);
     bloomComposer.render();
     renderer.render(scene, camera);
   });

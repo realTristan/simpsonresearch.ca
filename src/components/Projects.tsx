@@ -1,3 +1,6 @@
+"use client";
+
+import { GithubRepo } from "@/lib/types/github";
 import { useEffect, useState } from "react";
 
 /**
@@ -5,11 +8,14 @@ import { useEffect, useState } from "react";
  * @param url
  * @returns Promise<any>
  */
-async function fetchProjects(url: string) {
+async function fetchProjects(url: string): Promise<GithubRepo[]> {
   return await fetch(url)
     .then((response) => response.json())
-    .then((json) => json)
-    .catch((error) => console.log(error));
+    .then((json: GithubRepo[]) => json)
+    .catch((error) => {
+      console.log(error);
+      return [];
+    });
 }
 
 /**
@@ -17,22 +23,17 @@ async function fetchProjects(url: string) {
  * @returns JSX.Element
  */
 export default function Projects(): JSX.Element {
-  const [projects, setProjects] = useState<any[]>([]);
-  const [fetched, setFetched] = useState(false);
+  const [projects, setProjects] = useState<GithubRepo[]>([]);
 
   useEffect(() => {
-    if (fetched) return;
-    setFetched(true);
+    if (projects.length > 0) return;
 
-    fetchProjects("https://api.github.com/users/realTristan/repos").then(
-      (tristanProjects) =>
-        fetchProjects(
-          "https://api.github.com/users/Simpson-Computer-Technologies-Research/repos",
-        ).then((researchProjects) =>
-          setProjects([...tristanProjects, ...researchProjects]),
-        ),
+    fetchProjects("https://api.github.com/users/realTristan/repos").then((p1) =>
+      fetchProjects(
+        "https://api.github.com/users/Simpson-Computer-Technologies-Research/repos",
+      ).then((p2) => setProjects([...p1, ...p2])),
     );
-  }, [projects, fetched]);
+  }, [projects]);
 
   return (
     <div className="fade-in mx-10 flex flex-col items-center justify-center">
@@ -46,7 +47,7 @@ export default function Projects(): JSX.Element {
         <div className="h-1 w-80 rounded-full bg-blue-600 duration-500 ease-in-out group-hover:w-96"></div>
       </a>
 
-      {projects.map((data: any, i: number) => (
+      {projects.map((data: GithubRepo, i: number) => (
         <a
           key={i}
           href={data.html_url}

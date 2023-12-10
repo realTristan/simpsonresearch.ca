@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import { type SetState } from "./types";
+import { type SetState } from "./types/types";
 import { useState } from "react";
 
 /**

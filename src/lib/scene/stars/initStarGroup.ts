@@ -1,6 +1,6 @@
 import { Color, Group, Mesh, MeshBasicMaterial, SphereGeometry } from "three";
 import { starCount } from "../constants";
-import { Star } from "@/lib/types";
+import { Star } from "@/lib/types/types";
 
 /**
  * Initialize the star group.

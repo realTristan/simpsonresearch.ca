@@ -1,6 +1,6 @@
 import { Group } from "three";
 import { starAcceleration } from "../constants";
-import { Star } from "@/lib/types";
+import { Star } from "@/lib/types/types";
 
 /**
  * Move the stars forward

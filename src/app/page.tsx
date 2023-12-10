@@ -1,40 +1,29 @@
 "use client";
 
-import MainHeader from "@/components/MainHeader";
-import Projects from "@/components/Projects";
-import SceneCanvas from "@/components/SceneCanvas";
-import { ObjectState } from "@/lib/state";
-import { LightSpeedState, LightSpeedStateObject } from "@/lib/types";
 import Image from "next/image";
+import { LightSpeedState } from "@/lib/types/types";
+import { signal } from "@preact/signals";
+import SceneCanvas from "@/components/SceneCanvas";
+import Page from "@/components/Page";
 
 export default function Home() {
-  const showProjects = new ObjectState(false);
-  const lightSpeedState = new ObjectState<LightSpeedStateObject>({
-    lightSpeed: LightSpeedState.DEFAULT,
-  });
+  const lightSpeed = signal(LightSpeedState.DEFAULT);
 
   return (
     <>
       <Image
         src="/images/logo.png"
-        className="fixed left-2 top-2"
+        className="fixed left-2 top-2 z-10"
         alt="..."
         width={100}
         height={100}
       />
 
       <main className="fade-in flex min-h-screen flex-col items-center justify-center p-24">
-        {showProjects.value ? (
-          <Projects />
-        ) : (
-          <MainHeader
-            lightSpeedState={lightSpeedState}
-            showProjects={showProjects}
-          />
-        )}
+        <Page lightSpeed={lightSpeed} />
       </main>
 
-      <SceneCanvas state={lightSpeedState.value} />
+      <SceneCanvas lightSpeed={lightSpeed} />
     </>
   );
 }
