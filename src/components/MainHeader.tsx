@@ -22,7 +22,7 @@ export default function MainTitle(props: MainTitleProps): JSX.Element {
         SIMPSON RESEARCH
       </h1>
       <p className="mt-4 text-center text-lg font-light tracking-widest text-white">
-        Innovating passion.
+        Innovating knowledge.
       </p>
       <button
         onClick={() => {
