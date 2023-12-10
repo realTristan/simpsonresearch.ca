@@ -21,6 +21,9 @@ export default function MainTitle(props: MainTitleProps): JSX.Element {
       <h1 className="text-center text-6xl font-black tracking-wider text-white">
         SIMPSON RESEARCH
       </h1>
+      <p className="mt-4 text-center text-lg font-light tracking-widest text-white">
+        Innovating passion.
+      </p>
       <button
         onClick={() => {
           // Enable light speed
@@ -36,7 +39,7 @@ export default function MainTitle(props: MainTitleProps): JSX.Element {
           // Show the projects
           setTimeout(() => props.showProjects.set(true), LIGHT_SPEED_TIMEOUT);
         }}
-        className="mt-7 rounded-lg border border-white px-10 py-3 text-lg font-light tracking-widest text-white backdrop-blur-sm duration-700 ease-in-out hover:bg-white hover:tracking-[0.2em] hover:text-black"
+        className="mt-12 rounded-lg border border-white px-10 py-3 text-lg font-light tracking-widest text-white backdrop-blur-sm duration-700 ease-in-out hover:bg-white hover:tracking-[0.2em] hover:text-black"
       >
         ENGAGE LIGHT SPEED
       </button>

@@ -1,9 +1,8 @@
 "use client";
 
-import MainTitle from "@/components/MainTitle";
+import MainHeader from "@/components/MainHeader";
 import Projects from "@/components/Projects";
 import SceneCanvas from "@/components/SceneCanvas";
-import { LIGHT_SPEED_TIMEOUT } from "@/lib/scene/constants";
 import { ObjectState } from "@/lib/state";
 import { LightSpeedState, LightSpeedStateObject } from "@/lib/types";
 import Image from "next/image";
@@ -28,7 +27,7 @@ export default function Home() {
         {showProjects.value ? (
           <Projects />
         ) : (
-          <MainTitle
+          <MainHeader
             lightSpeedState={lightSpeedState}
             showProjects={showProjects}
           />
