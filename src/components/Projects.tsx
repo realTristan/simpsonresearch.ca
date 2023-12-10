@@ -52,23 +52,25 @@ export default function Projects(): JSX.Element {
           href={data.html_url}
           rel="noopener noreferrer"
           target="_blank"
-          className="fade-in my-12 w-[20rem] translate-y-0 duration-300 ease-in-out hover:-translate-y-8 md:w-[40rem] lg:mx-0 lg:mr-10 2xl:w-[50rem]"
+          className="fade-in my-12 translate-y-0 duration-300 ease-in-out hover:-translate-y-8 lg:w-[35rem]"
         >
           <h2 className="text-center text-xl font-black tracking-wider text-white">
             <mark className="bg-transparent text-blue-600">#</mark>
             &nbsp;{data.name}
           </h2>
+
           <p className="text-md font-base mt-4 text-center text-gray-200">
             {data.description}
           </p>
-          <div className="mt-6 flex items-center justify-center">
+
+          <div className="mt-6 flex flex-wrap items-center justify-center gap-4">
             {data.topics.map((topic: string, j: number) => (
-              <span
+              <p
                 key={j}
-                className="mx-4 text-center text-[0.60rem] uppercase tracking-widest text-gray-50"
+                className="text-center text-[0.60rem] uppercase tracking-widest text-gray-50"
               >
                 {topic}
-              </span>
+              </p>
             ))}
           </div>
         </a>
