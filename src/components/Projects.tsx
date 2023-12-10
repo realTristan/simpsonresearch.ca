@@ -1,23 +1,38 @@
 import { useEffect, useState } from "react";
 
-export default function Projects() {
+/**
+ * Fetches projects from GitHub API
+ * @param url
+ * @returns Promise<any>
+ */
+async function fetchProjects(url: string) {
+  return await fetch(url)
+    .then((response) => response.json())
+    .then((json) => json)
+    .catch((error) => console.log(error));
+}
+
+/**
+ * Projects component
+ * @returns JSX.Element
+ */
+export default function Projects(): JSX.Element {
   const [projects, setProjects] = useState<any[]>([]);
+  const [fetched, setFetched] = useState(false);
 
   useEffect(() => {
-    if (projects.length > 0) return;
+    if (fetched) return;
+    setFetched(true);
 
-    async function fetchProjects(url: string) {
-      return await fetch(url)
-        .then((response) => response.json())
-        .then((json) => setProjects((projects) => [...projects, ...json]))
-        .catch((error) => console.log(error));
-    }
-
-    fetchProjects("https://api.github.com/users/realTristan/repos");
-    fetchProjects(
-      "https://api.github.com/users/Simpson-Computer-Technologies-Research/repos",
+    fetchProjects("https://api.github.com/users/realTristan/repos").then(
+      (tristanProjects) =>
+        fetchProjects(
+          "https://api.github.com/users/Simpson-Computer-Technologies-Research/repos",
+        ).then((researchProjects) =>
+          setProjects([...tristanProjects, ...researchProjects]),
+        ),
     );
-  }, [projects]);
+  }, [projects, fetched]);
 
   return (
     <div className="fade-in mx-10 flex flex-col items-center justify-center">
