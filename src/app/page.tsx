@@ -12,7 +12,7 @@ export default function Home() {
   return (
     <>
       <Image
-        src="/images/logo.png"
+        src="/images/logo-new.png"
         className="fixed left-2 top-2 z-10"
         alt="..."
         width={100}
