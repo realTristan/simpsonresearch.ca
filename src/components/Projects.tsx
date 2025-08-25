@@ -30,7 +30,7 @@ export default function Projects(): JSX.Element {
 
     fetchProjects("https://api.github.com/users/realTristan/repos").then((p1) =>
       fetchProjects(
-        "https://api.github.com/users/Simpson-Computer-Technologies-Research/repos",
+        "https://api.github.com/users/simpsonresearch/repos",
       ).then((p2) => setProjects([...p1, ...p2])),
     );
   }, [projects]);

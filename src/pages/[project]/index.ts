@@ -11,7 +11,7 @@ export default function ProjectPage() {
     fetch(`https://api.github.com/repos/realTristan/${project}`).then(
       (response) => {
         if (!response.ok) {
-          window.location.href = `https://github.com/Simpson-Computer-Technologies-Research/${project}`;
+          window.location.href = `https://github.com/simpsonresearch/${project}`;
         } else {
           window.location.href = `https://github.com/realTristan/${project}`;
         }
